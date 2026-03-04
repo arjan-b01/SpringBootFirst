@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.model.UserV2;
 import com.example.demo.repository.UserRepositoryV2;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class UserServiceV2 {
     }
     public UserV2 getUserById(String id){
         return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException("User not found with id: "+id));
     }
 
     public UserV2 createUser(UserV2 user){
