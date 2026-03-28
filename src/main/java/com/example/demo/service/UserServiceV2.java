@@ -4,6 +4,7 @@ import com.example.demo.dto.*;
 import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.model.UserV2;
 import com.example.demo.repository.UserRepositoryV2;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -38,23 +39,38 @@ public class UserServiceV2 {
 //        return response;
 //    }
 
-    public List<UserResponse> getAllUsers(){
-        return userRepository.findAll().stream()
-                .map(u -> new UserResponse(u.getId(), u.getName(), u.getEmail()))
-                .toList();
+
+    //THE NEW METHOD (USING STREAM)(WITHOUT PAGINATION)
+//    public List<UserResponse> getAllUsers(){
+//        return userRepository.findAll().stream()
+//                .map(u -> new UserResponse(u.getId(), u.getName(), u.getEmail()))
+//                .toList();
+//    }
+
+    public Page<UserResponse> getAllUsers(int page, int size){
+        Pageable pageAble = PageRequest.of(page, size);
+        Page<UserV2> userPage = userRepository.findAll(pageAble);
+
+        return userPage.map(user -> new UserResponse(
+                user.getId(),
+                user.getName(),
+                user.getEmail(),
+                user.getTasks()
+        ));
     }
 
-//    public UserV2 getUserById(String id){
+//    public UserV2 getUserById(Long id){
 //        return userRepository.findById(id)
 //                .orElseThrow(() -> new UserNotFoundException("User not found with id: "+id));
 //    }
-    public UserResponse getUserById(String id){
+    public UserResponse getUserById(Long id){
         UserV2 user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
         return new UserResponse(
                 user.getId(),
                 user.getName(),
-                user.getEmail()
+                user.getEmail(),
+                user.getTasks()
         );
     }
 
@@ -71,18 +87,19 @@ public class UserServiceV2 {
         return new UserResponse(
                 savedUser.getId(),
                 savedUser.getName(),
-                savedUser.getEmail()
+                savedUser.getEmail(),
+                savedUser.getTasks()
         );
     }
 
-    public void deleteUser(String id){
+    public void deleteUser(Long id){
         if(!userRepository.existsById(id)){
             throw new UserNotFoundException("User not found with ID: " + id);
         }
         userRepository.deleteById(id);
     }
 
-//    public UserV2 updateUser(String id, UserV2 updatedUser){
+//    public UserV2 updateUser(Long id, UserV2 updatedUser){
 //        UserV2 existingUser = getUserById(id);
 //
 //        existingUser.setName(updatedUser.getName());
@@ -91,7 +108,7 @@ public class UserServiceV2 {
 //        return userRepository.save(existingUser);
 //    }
 
-    public UserResponse updateUser(String id, UserRequest request){
+    public UserResponse updateUser(Long id, UserRequest request){
         UserV2 existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
 
@@ -107,7 +124,8 @@ public class UserServiceV2 {
         return new UserResponse(
                 updatedUser.getId(),
                 updatedUser.getName(),
-                updatedUser.getEmail()
+                updatedUser.getEmail(),
+                updatedUser.getTasks()
         );
     }
 }

@@ -1,6 +1,6 @@
 package com.example.demo.repository;
 import com.example.demo.model.UserV2;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepositoryV2 extends MongoRepository<UserV2, String> {
+public interface UserRepositoryV2 extends JpaRepository<UserV2, Long> {
 }

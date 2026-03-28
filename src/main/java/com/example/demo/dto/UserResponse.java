@@ -1,19 +1,25 @@
 package com.example.demo.dto;
 
+import com.example.demo.model.Task;
+
+import java.util.*;
+
 public class UserResponse {
-    private String id;
+    private Long id;
     private String name;
     private String email;
+    private List<Task> tasks;
 
     public UserResponse(){}
 
-    public UserResponse(String id, String name, String email){
+    public UserResponse(Long id, String name, String email, List<Task> tasks){
         this.id = id;
         this.name = name;
         this.email = email;
+        this.tasks = tasks;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
@@ -23,5 +29,9 @@ public class UserResponse {
 
     public String getEmail() {
         return email;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
     }
 }

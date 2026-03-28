@@ -1,14 +1,15 @@
 package com.example.demo.exception;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.*;
 
 public class ErrorResponse {
     private LocalDateTime time;
     private int status;
-    private String error;
+    private Object error;
     private String path;
 
-    public ErrorResponse(LocalDateTime time, int status, String error, String path){
+    public ErrorResponse(LocalDateTime time, int status, Object error, String path){
         this.time = time;
         this.status = status;
         this.error = error;
@@ -23,7 +24,7 @@ public class ErrorResponse {
         return status;
     }
 
-    public String getError() {
+    public Object getError() {
         return error;
     }
 
