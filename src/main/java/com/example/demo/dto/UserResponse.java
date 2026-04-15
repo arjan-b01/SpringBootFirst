@@ -8,11 +8,11 @@ public class UserResponse {
     private Long id;
     private String name;
     private String email;
-    private List<Task> tasks;
+    private List<TaskResponse> tasks;
 
     public UserResponse(){}
 
-    public UserResponse(Long id, String name, String email, List<Task> tasks){
+    public UserResponse(Long id, String name, String email, List<TaskResponse> tasks){
         this.id = id;
         this.name = name;
         this.email = email;
@@ -31,7 +31,7 @@ public class UserResponse {
         return email;
     }
 
-    public List<Task> getTasks() {
+    public List<TaskResponse> getTasks() {
         return tasks;
     }
 }

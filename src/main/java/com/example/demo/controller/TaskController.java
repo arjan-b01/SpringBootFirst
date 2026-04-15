@@ -19,7 +19,7 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    @PostMapping("/{userId}/tasks")
+    @PostMapping("/{userId}")
     public TaskResponse createTask (@PathVariable Long userId, @RequestBody TaskRequest request){
         return taskService.createTask(userId, request);
     }

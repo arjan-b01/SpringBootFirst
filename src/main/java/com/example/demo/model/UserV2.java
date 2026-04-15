@@ -1,4 +1,5 @@
 package com.example.demo.model;
+import com.example.demo.dto.TaskResponse;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -17,6 +18,12 @@ public class UserV2 {
 
     @Column(nullable = false, unique = true)
     private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
+    private String role;
 
     @OneToMany(mappedBy = "user",
                cascade = CascadeType.ALL,
@@ -62,5 +69,21 @@ public class UserV2 {
 
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

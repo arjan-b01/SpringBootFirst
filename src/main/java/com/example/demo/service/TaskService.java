@@ -7,6 +7,7 @@ import com.example.demo.model.Task;
 import com.example.demo.model.UserV2;
 import com.example.demo.repository.TaskRepository;
 import com.example.demo.repository.UserRepositoryV2;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import java.util.*;
 
@@ -20,6 +21,7 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
+    @Transactional
     public TaskResponse createTask(Long id, TaskRequest request){
         UserV2 user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("user not found with id: " + id));

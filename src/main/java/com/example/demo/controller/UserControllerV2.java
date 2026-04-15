@@ -24,14 +24,10 @@ import static org.springframework.http.ResponseEntity.ok;
 @RequestMapping("/_users")
 public class UserControllerV2 {
     private final UserServiceV2 userService;
-    private final UserRepositoryV2 userRepository;
-    private final TaskRepository taskRepository;
     private final TaskService taskService;
 
-    public UserControllerV2(UserServiceV2 userService, UserRepositoryV2 userRepository, TaskRepository taskRepository, TaskService taskService){
+    public UserControllerV2(UserServiceV2 userService, TaskService taskService){
         this.userService = userService;
-        this.taskRepository = taskRepository;
-        this.userRepository = userRepository;
         this.taskService = taskService;
     }
 

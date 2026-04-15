@@ -1,5 +1,6 @@
 package com.example.demo.dto;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
@@ -10,6 +11,12 @@ public class UserRequest {
     @NotBlank(message = "Email is required.")
     @Email(message = "Proper email format is required.")
     private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
+    private String role;
 
     public UserRequest(){}
 
@@ -27,5 +34,21 @@ public class UserRequest {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
